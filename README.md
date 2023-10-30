@@ -2,30 +2,34 @@
 
 ## Compatibility
 
-Android mobile SDK supports:
+The Android mobile SDK supports:
 
 - minSdkVersion 23 and above.
-- compileSdkVersion and targetSdkVersion 31 and above. Please refer to this [requirement](https://developer.android.com/google/play/requirements/target-sdk).
+- compileSdkVersion and targetSdkVersion 31 and above. Please refer to
+  this [requirement](https://developer.android.com/google/play/requirements/target-sdk).
 
 ## Github package token generation
 
-Due to the nature of github packages to fetch our SDK you need to generate your own github token. One of the ways would be to generate classical github token with "read:packages"
-scope. More
-info [here](https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token).
+To fetch our SDK from GitHub packages, you’ll need to generate your own GitHub token. One method is
+to generate a standard GitHub token with "read:packages"
+scope. For more information, click [here](https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token)
+.
 
 ## Getting your github account id
 
-Due to the nature of github packages to fetch our SDK you need to get ID of your personal account. One of the ways would be to make request
-to https://api.github.com/users/your_github_user_name replacing your_github_user_name with your actual github user name. The
-request's respond contains "id" field which refers to
-ID of account with your_github_user_name name.
+To fetch our SDK from GitHub packages, you’ll need to retrieve the ID of your personal account. One
+method is to send a request to  https://api.github.com/users/your_github_user_name. Replace
+your_github_user_name with your actual GitHub username. The
+Response will contain an "id" key that corresponds to your account’s ID.
 
 ## Installation
 
-1. Download [Google Play services SDK supplement dependency](https://developers.google.com/pay/issuers/apis/push-provisioning/android/releases) and unzip the SDK supplement to
-   your project's folder. You will have a directory structure similar to `./tapandpay_sdk/com/google/android/gms/...`. Make sure the path to the SDK supplement aligns with the
-   path you configure in your Gradle configuration later.
-2. Add it to your `settings.gradle` file:
+1. Download
+   the [Google Play services SDK supplement dependency](https://developers.google.com/pay/issuers/apis/push-provisioning/android/releases)
+   and unzip it to your project’s folder. This will create a directory structure
+   like `./tapandpay_sdk/com/google/android/gms/...`. Ensure that the SDK supplement’s path aligns
+   with what you later configure in your Gradle setup.
+2. Add the following to your `settings.gradle` file:
 
 ```
 dependencyResolutionManagement {
@@ -77,8 +81,9 @@ dependencies {
 
 ## Configuration
 
-1. Add public key to `AndroidManifest.xml`. To get your public key please contact <mobile-sdk@intergiro.com>. Note: *SDK will throw RuntimeException in case if public key was not
-   set.*
+1. Add your public key to the `AndroidManifest.xml`. To get your public key please
+   contact <mobile-sdk@intergiro.com>. Note: If the public key isn’t set, the SDK will throw a
+   ‘RuntimeException’.
 
 ```
 <manifest>
@@ -90,8 +95,10 @@ dependencies {
 </manifest>
 ```
 
-2. SDK will be automatically initialized by [Jetpack App Startup](https://developer.android.com/topic/libraries/app-startup).
-3. (*Optional*) You can set your custom theme to `IntergiroWebActivity` (`NoActionBar` variants are preferred).
+2. SDK will be automatically initialized
+   by [Jetpack App Startup](https://developer.android.com/topic/libraries/app-startup).
+3. (*Optional*) You can set your custom theme to `IntergiroWebActivity` (`NoActionBar` variants are
+   preferred).
 
 ```
 <activity
@@ -102,7 +109,9 @@ dependencies {
 
 #### Permissions
 
-We include the [INTERNET](https://developer.android.com/reference/android/Manifest.permission#INTERNET) permission by default as we need it to make network requests:
+We include
+the [INTERNET](https://developer.android.com/reference/android/Manifest.permission#INTERNET)
+permission by default as we need it to make network requests:
 
 ```
 <uses-permission android:name="android.permission.INTERNET"/>
@@ -114,16 +123,18 @@ SDK should work without any custom proguard configuration.
 
 ## Usage
 
-To start Intergiro consent flow you should use `IntergiroUserSession` ([how this works](https://developer.android.com/training/basics/intents/result)). This class will
-start `IntergiroWebActivity` where interaction with Intergiro 3D API happens.
+To initiate the Intergiro consent flow,
+utilize `IntergiroUserSession` ([how this works](https://developer.android.com/training/basics/intents/result))
+. This class will launch `IntergiroWebActivity` where you can interact with the Intergiro 3d API.
 
-Flow will end up with `IntergiroUserSessionResult`. Result has optional `String` payload (usually it's json) and it could be one of 3 types:
+The flow concludes with an`IntergiroUserSessionResult`. This result contains an optional `String`
+payload (typically it's JSON) and can be one of three types:
 
 * `IntergiroUserSessionResult.Completed` - Flow completed normally
 * `IntergiroUserSessionResult.Canceled` - User ended flow by pressing/swiping back.
 * `IntergiroUserSessionResult.Error` - Error happened, like connection error.
 
-`Error` payload has next format:
+The `Error` payload has the following structure::
 
 ```
 {
