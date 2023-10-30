@@ -174,3 +174,7 @@ class SampleActivity : AppCompatActivity(), ActivityResultCallback<IntergiroUser
     }
 }
 ```
+
+## License
+
+Intergiro Android SDK is released under the [MIT license](LICENSE.md).
